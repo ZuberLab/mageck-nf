@@ -13,7 +13,7 @@ def helpMessage() {
 
     Options:
         --contrasts     Tab-delimited text file specifying the contrasts
-                        to be analysed. (Defaults to 'contrasts.txt')
+                        to be analyzed. (Defaults to 'contrasts.txt')
                         The following columns are required:
                             - name: name of contrasts
                             - control: control samples (comma separated)
@@ -22,11 +22,10 @@ def helpMessage() {
                             - fdr_method: multiple testing adjustment method
                             - lfc_method: method to combine guides / hairpins
 
-        --counts        Tab-delimited test file containing the raw
-                        counts. (Defaults to 'counts_mageck.txt')
+        --counts        Tab-delimited test file containing the raw counts.
+                        (Defaults to 'counts_mageck.txt')
                         This file must conform to the input requirements of
                         MAGeCK 0.5.6 (http://mageck.sourceforge.net)
-
 
         --resultsDir    Directory name to save results to. (Defaults to
                         'results')
