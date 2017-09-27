@@ -1,7 +1,56 @@
 #!/usr/bin/env nextflow
 
+def helpMessage() {
+    log.info"""
+    ================================================================
+     mageck-nf
+    ================================================================
+
+    Statistical analysis of multiplexed CRISPR-Cas9 / shRNA screens
+
+    Usage:
+    nextflow run ZuberLab/mageck-nf
+
+    Options:
+        --contrasts     Tab-delimited text file specifying the contrasts
+                        to be analysed. (Defaults to 'contrasts.txt')
+                        The following columns are required:
+                            - name: name of contrasts
+                            - control: control samples (comma separated)
+                            - treatment: treatment samples (comma separated)
+                            - norm_method: normalization method
+                            - fdr_method: multiple testing adjustment method
+                            - lfc_method: method to combine guides / hairpins
+
+        --counts        Tab-delimited test file containing the raw
+                        counts. (Defaults to 'counts_mageck.txt')
+                        This file must conform to the input requirements of
+                        MAGeCK 0.5.6 (http://mageck.sourceforge.net)
+
+
+        --resultsDir    Directory name to save results to. (Defaults to
+                        'results')
+
+    Profiles:
+        standard        local execution with singularity
+        sge             SGE execution with singularity
+
+    Docker:
+    zuberlab/mageck-nf:latest
+
+    Author:
+    Jesse J. Lipp (jesse.lipp@imp.ac.at)
+
+    """.stripIndent()
+}
+
+if (params.help){
+    helpMessage()
+    exit 0
+}
+
 Channel
-    .fromPath( params.input )
+    .fromPath( params.contrasts )
     .splitCsv(sep: '\t', header: true)
     .set { contrastsMageck }
 
