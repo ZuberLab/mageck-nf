@@ -78,7 +78,8 @@ process mageck {
         --norm-method ${parameters.norm_method} \
         --adjust-method ${parameters.fdr_method} \
         --gene-lfc-method ${parameters.lfc_method} \
-        --normcounts-to-file
+        --normcounts-to-file \
+        --remove-zero control
     """
 }
 
