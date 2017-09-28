@@ -69,7 +69,8 @@ genes <- genes_raw %>%
   separate(metric, into = c("direction", "metric"), sep = "_") %>%
   spread(metric, value) %>%
   rename(p = `p-value`, guides_good = goodsgrna) %>%
-  select(direction, gene, guides, guides_good, rank, lfc, score, p, fdr)
+  select(direction, gene, guides, guides_good, lfc, score, p, fdr) %>%
+  arrange(fdr)
 
 genes %>%
   nest(-direction) %>%
