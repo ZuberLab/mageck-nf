@@ -33,6 +33,7 @@ def helpMessage() {
     Profiles:
         standard        local execution with singularity
         sge             SGE execution with singularity
+        slurm           SLURM execution with singularity
 
     Docker:
     zuberlab/mageck-nf:latest
