@@ -37,13 +37,13 @@ sgrna <- sgrna_raw %>%
   rename_all(str_replace, "[.]", "_") %>%
   mutate_at(c("control_count", "treatment_count"), str_replace_all, "[/]", ";") %>%
   rename(id = sgrna,
-         gene = Gene,
+         group = Gene,
          treatment_mean = treat_mean,
          adjusted_var = adj_var,
          lfc = LFC,
          fdr = FDR) %>%
   select(id,
-         gene,
+         group,
          control_count,
          treatment_count,
          control_mean,
