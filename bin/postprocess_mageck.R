@@ -3,7 +3,7 @@
 ################################################################################
 # post-process MAGeCK test output files
 # part of ZuberLab/mageck-nf pipeline at https://github.com/ZuberLab/mageck-nf
-# 
+#
 # Jesse J. Lipp
 # Institute of Molecular Pathology (IMP), Vienna, Austria
 # started 2017/09/27
@@ -36,24 +36,25 @@ genes_raw <- read_tsv(gene_file)
 sgrna <- sgrna_raw %>%
   rename_all(str_replace, "[.]", "_") %>%
   mutate_at(c("control_count", "treatment_count"), str_replace_all, "[/]", ";") %>%
-  rename(id = sgrna, 
-         gene = Gene, 
-         treatment_mean = treat_mean, 
-         adjusted_var = adj_var, 
-         lfc = LFC, 
+  rename(id = sgrna,
+         gene = Gene,
+         treatment_mean = treat_mean,
+         adjusted_var = adj_var,
+         lfc = LFC,
          fdr = FDR) %>%
-  select(id, 
-         gene, 
-         control_count, 
-         treatment_count, 
-         control_mean, 
-         treatment_mean, 
-         control_var, 
-         adjusted_var, 
-         score, 
-         p_low, 
-         p_high, 
-         p_twosided, 
+  select(id,
+         gene,
+         control_count,
+         treatment_count,
+         control_mean,
+         treatment_mean,
+         control_var,
+         adjusted_var,
+         lfc,
+         score,
+         p_low,
+         p_high,
+         p_twosided,
          fdr)
 
 sgrna %>%
