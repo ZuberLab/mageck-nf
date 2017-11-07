@@ -65,12 +65,12 @@ sgrna %>%
 # ------------------------------------------------------------------------------
 genes <- genes_raw %>%
   rename_all(str_replace, "[|]", "_") %>%
-  rename(gene = id, guides = num) %>%
+  rename(group = id, guides = num) %>%
   gather(metric, value, neg_score:pos_lfc) %>%
   separate(metric, into = c("direction", "metric"), sep = "_") %>%
   spread(metric, value) %>%
   rename(p = `p-value`, guides_good = goodsgrna) %>%
-  select(direction, gene, guides, guides_good, lfc, score, p, fdr) %>%
+  select(direction, group, guides, guides_good, lfc, score, p, fdr) %>%
   arrange(fdr)
 
 genes %>%
