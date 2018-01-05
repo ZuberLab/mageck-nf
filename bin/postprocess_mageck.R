@@ -2,7 +2,7 @@
 
 ################################################################################
 # post-process MAGeCK test output files
-# part of ZuberLab/mageck-nf pipeline at https://github.com/ZuberLab/mageck-nf
+# part of zuberlab/mageck-nf pipeline at https://github.com/zuberlab/mageck-nf
 #
 # Jesse J. Lipp
 # Institute of Molecular Pathology (IMP), Vienna, Austria

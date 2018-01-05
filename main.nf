@@ -9,7 +9,7 @@ def helpMessage() {
     Statistical analysis of multiplexed CRISPR-Cas9 / shRNA screens
 
     Usage:
-    nextflow run ZuberLab/mageck-nf
+    nextflow run zuberlab/mageck-nf
 
     Options:
         --contrasts     Tab-delimited text file specifying the contrasts
@@ -71,16 +71,20 @@ process mageck {
 
     script:
     """
+    prefilter_counts.R \
+        ${counts} \
+        ${parameters.control} \
+        ${params.min_count} > counts_filtered.txt
+        
     mageck test \
         --output-prefix ${parameters.name} \
-        --count-table ${counts} \
+        --count-table counts_filtered.txt \
         --control-id ${parameters.control} \
         --treatment-id ${parameters.treatment} \
         --norm-method ${parameters.norm_method} \
         --adjust-method ${parameters.fdr_method} \
         --gene-lfc-method ${parameters.lfc_method} \
-        --normcounts-to-file \
-        --remove-zero 'control'
+        --normcounts-to-file
     """
 }
 
