@@ -85,7 +85,7 @@ process mageck {
         --adjust-method ${parameters.fdr_method} \
         --gene-lfc-method ${parameters.lfc_method} \
         --normcounts-to-file \
-        --additional-rra-parameters ${params.min_rra_window}
+        --additional-rra-parameters '-p ${params.min_rra_window}'
     """
 }
 
