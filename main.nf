@@ -75,7 +75,7 @@ process mageck {
         ${counts} \
         ${parameters.control} \
         ${params.min_count} > counts_filtered.txt
-        
+
     mageck test \
         --output-prefix ${parameters.name} \
         --count-table counts_filtered.txt \
@@ -84,7 +84,8 @@ process mageck {
         --norm-method ${parameters.norm_method} \
         --adjust-method ${parameters.fdr_method} \
         --gene-lfc-method ${parameters.lfc_method} \
-        --normcounts-to-file
+        --normcounts-to-file \
+        --additional-rra-parameters ${parameters.min_rra_window}
     """
 }
 
