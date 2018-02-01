@@ -18,6 +18,7 @@ library(dplyr)
 library(stringr)
 library(tidyr)
 library(purrr)
+library(ggplot2)
 
 # command line arguments
 args       <- commandArgs(trailingOnly = TRUE)
@@ -76,3 +77,48 @@ genes <- genes_raw %>%
 genes %>%
   nest(-direction) %>%
   walk2(.x = .$data, .y = .$direction, .f = ~ write_tsv(.x, paste0("genes_", .y, "_stats.txt")))
+
+# ------------------------------------------------------------------------------
+# qc plots
+# ------------------------------------------------------------------------------
+### sgrna level power plot
+qc1 <- sgrna %>%
+  select(p_twosided, fdr) %>%
+  arrange(p_twosided) %>%
+  mutate(rank = seq(n())) %>%
+  gather(metric, value, -rank) %>%
+  ggplot(aes(x = rank, y = value, color = metric)) +
+  geom_abline(aes(slope = 1 / max(rank), intercept = 0), linetype = 3) +
+  geom_line() +
+  theme_light() +
+  ggtitle("Guide-level power curve")
+ggsave(filename = "sgrna_power_curve.pdf", plot = qc1, device = "pdf", width = 6, height = 5)
+
+### sgrna level MA plot
+qc2 <- sgrna %>%
+  select(control_mean, lfc, fdr) %>%
+  mutate(fdr = if_else(fdr < 1e-6, 1e-6, fdr)) %>%
+  ggplot(aes(x = control_mean, y = lfc, color = -log10(fdr))) +
+  geom_hline(yintercept = 0, linetype = 3) +
+  geom_point(size = 0.75) +
+  scale_color_gradientn(colors = rainbow(7)) +
+  theme_light() +
+  ggtitle("Guide-level MA plot")
+ggsave(filename = "sgrna_ma_plot.pdf", plot = qc2, device = "pdf", width = 6, height = 5)
+
+### gene level power curve
+qc3 <- genes %>%
+  select(direction, p, fdr) %>%
+  mutate(direction = if_else(direction == "neg", "negative selection", "positive selection")) %>%
+  arrange(p) %>%
+  group_by(direction) %>%
+  mutate(rank = seq(n())) %>%
+  ungroup %>%
+  gather(metric, value, p:fdr) %>%
+  ggplot(aes(x = rank, y = value, color = metric)) +
+  geom_abline(aes(slope = 1 / max(rank), intercept = 0), linetype = 3) +
+  geom_line() +
+  facet_wrap(~ direction) +
+  theme_light() +
+  ggtitle("Gene-level power curve")
+ggsave(filename = "gene_power_curve.pdf", plot = qc3, device = "pdf", width = 9, height = 5)

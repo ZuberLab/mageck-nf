@@ -62,12 +62,22 @@ process mageck {
 
     tag { parameters.name }
 
+    publishDir path: "${params.resultsDir}/${parameters.name}",
+               mode: 'copy',
+               overwrite: 'true',
+               saveAs: {filename ->
+                   if (filename.indexOf(".log") > 0) "$filename"
+                   else if (filename.indexOf(".normalized.txt") > 0) "$filename"
+                   else null
+               }
     input:
     val(parameters) from contrastsMageck
     each file(counts) from countsMageck
 
     output:
     set val("${parameters.name}"), file('*.sgrna_summary.txt'), file('*.gene_summary.txt') into resultsMageck
+    file('*.log') into logsMageck
+    file('*.normalized.txt') into normalizedMageck
 
     script:
     """
@@ -102,6 +112,7 @@ process postprocess {
 
     output:
     set val(name), file('*_stats.txt') into processedMageck
+    file('*.pdf') into qcMageck
 
     script:
     """
