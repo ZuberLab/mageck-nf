@@ -45,7 +45,9 @@ nextflow run zuberlab/mageck-nf -profile conda
 ```
 
 ## Documentation
+```bash
 nextflow run zuberlab/mageck-nf --help
+```
 
 ## Credits
 Nextflow:  Paolo Di Tommaso - https://github.com/nextflow-io/nextflow
