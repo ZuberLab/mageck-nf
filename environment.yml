@@ -1,0 +1,7 @@
+name: mageck-nf
+channels:
+  - bioconda
+dependencies:
+  - mageck=0.5.7
+  - r-base=3.4.1
+  - r-tidyverse=1.1.1

@@ -25,15 +25,16 @@ def helpMessage() {
         --counts        Tab-delimited test file containing the raw counts.
                         (Defaults to 'counts_mageck.txt')
                         This file must conform to the input requirements of
-                        MAGeCK 0.5.6 (http://mageck.sourceforge.net)
+                        MAGeCK 0.5.7 (http://mageck.sourceforge.net)
 
         --resultsDir    Directory name to save results to. (Defaults to
                         'results')
 
     Profiles:
-        standard        local execution with singularity
-        sge             SGE execution with singularity
-        slurm           SLURM execution with singularity
+        standard        local execution
+        docker          local execution with docker
+        singularity     local execution with singularity
+        slurm           IMPIMBA2 cluster execution with singularity
 
     Docker:
     zuberlab/mageck-nf:latest
