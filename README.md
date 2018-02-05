@@ -2,7 +2,9 @@
 Statistical Analysis of multiplexed CRISPR/shRNA Screens using MAGeCK
 
 ## Installation
-The most convenient way is to use nextflow's built-in 'pull' command
+Install Nextflow following the instructions at https://www.nextflow.io/docs/latest/getstarted.html
+
+The most convenient way is to install mageck-nf is to use nextflow's built-in 'pull' command
 ```bash
 nextflow pull zuberlab/mageck-nf
 ```
