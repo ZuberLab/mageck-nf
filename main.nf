@@ -80,6 +80,7 @@ process mageck {
     file('*.normalized.txt') into normalizedMageck
 
     script:
+    rra_params = params.min_rra_window > 0 ? "--additional-rra-parameters '-p ${params.min_rra_window}'" : ''
     """
     prefilter_counts.R \
         ${counts} \
@@ -95,7 +96,7 @@ process mageck {
         --adjust-method ${parameters.fdr_method} \
         --gene-lfc-method ${parameters.lfc_method} \
         --normcounts-to-file \
-        --additional-rra-parameters '-p ${params.min_rra_window}'
+        ${rra_params}
     """
 }
 

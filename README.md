@@ -2,10 +2,10 @@
 Statistical Analysis of multiplexed CRISPR/shRNA Screens using MAGeCK
 
 ## Basic usage
-nextflow run ZuberLab/mageck-nf
+nextflow run zuberlab/mageck-nf
 
 ## Documentation
-nextflow run ZuberLab/mageck-nf --help
+nextflow run zuberlab/mageck-nf --help
 
 ## Credits
 Nextflow:  Paolo Di Tommaso - https://github.com/nextflow-io/nextflow
