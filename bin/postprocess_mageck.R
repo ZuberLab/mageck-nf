@@ -102,6 +102,7 @@ qc2 <- sgrna %>%
   geom_hline(yintercept = 0, linetype = 3) +
   geom_point(size = 0.75) +
   scale_color_gradientn(colors = rainbow(7)) +
+  scale_x_log10() +
   theme_light() +
   ggtitle("Guide-level MA plot")
 ggsave(filename = "sgrna_ma_plot.pdf", plot = qc2, device = "pdf", width = 6, height = 5)

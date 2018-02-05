@@ -59,6 +59,10 @@ Channel
     .fromPath( params.counts )
     .set { countsMageck }
 
+Channel
+    .fromPath( params.cnv )
+    .set { cnvMageck }
+
 process mageck {
 
     tag { parameters.name }
@@ -74,6 +78,7 @@ process mageck {
     input:
     val(parameters) from contrastsMageck
     each file(counts) from countsMageck
+    each file(cnv) from cnvMageck
 
     output:
     set val("${parameters.name}"), file('*.sgrna_summary.txt'), file('*.gene_summary.txt') into resultsMageck
@@ -82,6 +87,8 @@ process mageck {
 
     script:
     rra_params = params.min_rra_window > 0 ? "--additional-rra-parameters '-p ${params.min_rra_window}'" : ''
+    cnv_file = cnv.exists() & parameters.cnv_correction != '' ? "--cnv-norm ${cnv}" : ""
+    cnv_cellline = cnv.exists() & parameters.cnv_correction != '' ? "--cell-line ${parameters.cnv_correction}" : ""
     """
     prefilter_counts.R \
         ${counts} \
@@ -97,7 +104,9 @@ process mageck {
         --adjust-method ${parameters.fdr_method} \
         --gene-lfc-method ${parameters.lfc_method} \
         --normcounts-to-file \
-        ${rra_params}
+        ${rra_params} \
+        ${cnv_file} \
+        ${cnv_cellline}
     """
 }
 
