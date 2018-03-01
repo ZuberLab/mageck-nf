@@ -28,8 +28,8 @@ gene_file  <- args[2]
 # ------------------------------------------------------------------------------
 # import
 # ------------------------------------------------------------------------------
-sgrna_raw <- read_tsv(sgrna_file)
-genes_raw <- read_tsv(gene_file)
+sgrna_raw <- read_tsv(sgrna_file, col_types = "ccccddddddddddc")
+genes_raw <- read_tsv(gene_file, col_types = "cidddiiddddiid")
 
 # ------------------------------------------------------------------------------
 # format sgRNA results
