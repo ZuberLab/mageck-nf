@@ -1,4 +1,6 @@
 # mageck-nf
+** DEPRECATED: Use zuberlab/crispr-mageck-nf **
+
 Statistical Analysis of multiplexed CRISPR/shRNA Screens using MAGeCK
 
 ## Installation
